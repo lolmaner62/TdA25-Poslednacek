@@ -1,27 +1,14 @@
-import os
-
-from flask import Flask
-from . import db
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
-app.config.from_mapping(
-    DATABASE=os.path.join(app.instance_path, 'tourdeflask.sqlite'),
-)
+@app.route("/")
+def hello_world():
+    return render_template("index.html")
 
-# ensure the instance folder exists
-try:
-    os.makedirs(app.instance_path)
-except OSError:
-    pass
+@app.route("/api")
+def hello_json():
+    return render_template("Manifest.json")
 
-db.init_app(app)
-
-
-@app.route('/')
-def hello_world():  # put application's code here
-    return "Hello Tour de App!"
-
-
-if __name__ == '__main__':
-    app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
