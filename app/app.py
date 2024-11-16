@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
 
@@ -8,7 +8,11 @@ def hello_world():
 
 @app.route("/api")
 def hello_json():
-    return render_template("Manifest.json")
+    response_data = {
+        "organization": "Student Cyber Games",  # Add expected key and value
+        "message": "Welcome to the API!",
+    }
+    return jsonify(response_data)
 
 if __name__ == "__main__":
     app.run(debug=True)
